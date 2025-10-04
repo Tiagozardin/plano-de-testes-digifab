@@ -1,36 +1,29 @@
 # Plano de Teste
 
-Digifab
-versão 1.0
+**Digifab**
+
+*versão 1.0*
 
 ## Histórico das alterações
 
-   Data    | Versão | Descrição                                             | Autor(a)
------------|--------|-------------------------------------------------------|---------------------------------------------------------------
-04/10/2025 |  1.0   | Versão inicial baseada no Caso de Ensino Startup 2025 | Tiago Zardin/ Felipe Griep / Giulia Cardoso / Rosival de Souza
-
+   Data    | Versão |    Descrição                                  | Autor(a)
+-----------|--------|-----------------------------------------------|-----------------
+04/10/2025 |  1.0   | Versão inicial baseada no Caso de Ensino     | Tiago Zardin / Felipe Griep / Giulia Cardoso / Rosival de Souza
 
 ## 1 - Introdução
 
-Este documento descreve os requisitos a testar, os tipos de testes definidos para cada iteração, os recursos de hardware e software a serem empregados e o cronograma dos testes ao longo do projeto. As seções referentes aos requisitos, recursos e cronograma servem para permitir aos stakeholders do projeto acompanhar a evolução dos testes.
+Este documento descreve os requisitos a testar, os  tipos de testes definidos para cada iteração, os recursos de hardware e software a serem empregados e o cronograma dos testes ao longo do projeto. As seções referentes aos requisitos, recursos e cronograma servem para permitir ao gerente do projeto acompanhar a evolução dos testes.
 
-Com esse documento, você deve:
-  * Identificar informações de projeto existentes e os componentes de software que devem ser testados.
-  * Listar os Requisitos a testar.
-  * Recomendar e descrever as estratégias de teste a serem empregadas.
-  * Identificar os recursos necessários e prover uma estimativa dos esforços de teste.
-  * Listar os elementos resultantes do projeto de testes.
-
-**Programa sob teste (contexto Startup 2025):** plataforma de gestão e rastreabilidade da cadeia de suprimentos com módulos de cadastros (fornecedores, clientes, produtos), registro de movimentações por etapa, gerenciamento documental, dashboards e cálculo de balanço de massa com alertas, integrações (ERP/ETL, código de barras/RFID) e controle de acesso.
+**Programa sob teste (Digifab):** plataforma de gestão e rastreabilidade da cadeia de suprimentos com módulos de cadastros (fornecedores, clientes, produtos), registro de movimentações por etapa, gerenciamento documental, dashboards e cálculo de balanço de massa com alertas, integrações (ERP/ETL, código de barras/RFID) e controle de acesso.
 
 ## 2 - Requisitos a Testar
 
-Esta seção contém os casos de uso e requisitos não funcionais identificados como objetos dos testes ao longo do desenvolvimento do projeto.
+Esta seção contém os casos de uso e requisitos não funcionais identificados como objetos dos testes ao longo do desenvolvimento do projeto. A lista abaixo inclui **funcionais** (Casos de Uso) e **não funcionais** (RNFs).
 
 ### Casos de uso:
 
 Identificador do caso de uso | Nome do caso de uso
----|---
+-----------------------------|---------------------
 UC1 | Cadastrar fornecedor/cliente/produto
 UC2 | Registrar movimentação com rastreabilidade (código de barras/RFID)
 UC3 | Gerenciar documentos (anexar/consultar/baixar)
@@ -41,88 +34,261 @@ UC7 | Integração ERP/ETL (importação/consumo de dados)
 
 ### Requisitos não-funcionais:
 
-Identificador do requisito | Nome do requisito
----|---
+Identificador do requisito   | Nome do requisito
+-----------------------------|---------------------
 RNF1 | Responsividade e usabilidade (desktop/mobile)
 RNF2 | Segurança e LGPD (privacidade, mascaramento, logs/auditoria)
 RNF3 | Desempenho sob carga (picos na API de movimentação)
 RNF4 | Confiabilidade de dados/consistência (rastreabilidade ponta a ponta)
 RNF5 | Observabilidade (logs, métricas, tracing)
+RNF6 | Compatibilidade (browsers suportados) e acessibilidade básica
+RNF7 | Instalabilidade/Atualização (instalação, rollback, configuração)
 
 ## 3 - Tipos de teste
 
-Tipos de testes escolhidos para o projeto e próximos ciclos:
+Abaixo os **tipos de testes** escolhidos para o projeto. Incluímos **funcionais e não funcionais**, cobrindo interface, API, integração, dados/negócio, segurança, desempenho, instalação e usabilidade.
 
-  * Teste de interface de usuário (E2E) – Playwright/Cypress
-  * Teste de API/contrato – Postman/Newman, REST Assured
-  * Teste de integração (ERP/ETL, RFID)
-  * Teste de dados/consistência (balanço de massa)
-  * Teste de desempenho (k6/JMeter)
-  * Teste de segurança (DAST OWASP ZAP, SCA)
-  * Teste de usabilidade e acessibilidade
-  * Testes de unidade e contratos (xUnit/NUnit, Jest)
+- Teste de interface de usuário (E2E UI);
+- Teste funcional por casos de uso (caixa-preta);
+- Teste de API/contrato;
+- Teste de integração (ERP/ETL, RFID);
+- Teste de dados/consistência (balanço de massa);
+- Teste de performance (tempo de resposta);
+- Teste de carga e stress;
+- Teste de segurança e controle de acesso (DAST/SCA);
+- Teste de compatibilidade (browsers) e acessibilidade;
+- Teste de instalação/atualização (rollback, migrações);
+- Teste de usabilidade (heurísticas, fluxo);
+- Testes de unidade e contratos.
 
-### 3.1 - Métodos da Classe
+> **Mapeamento exemplo:** UC1, UC3, UC5 → UI/API; UC2, UC7 → Integração; UC4 → Dados/Negócio + Performance; RNF1/RNF6 → Compatibilidade/Acessibilidade; RNF2 → Segurança; RNF3 → Carga/Stress; RNF4 → Consistência; RNF7 → Instalação.
 
-Para teste de funcionalidade. Aqui deve-se verificar se cada classe retorna o esperado. Se possível usar teste automatizado.
 
-- **Objetivo:** garantir comportamento correto de serviços e repositórios (CRUD, cálculos de balanço, regras de alerta).
-- **Técnica:** (x) manual  (x) automática
-- **Estágio do teste:** Integração ( )  Sistema ( )  Unidade (x)  Aceitação ( )
-- **Abordagem do teste:** Caixa branca (x)  Caixa preta (x)
-- **Responsável(is):** Devs + QA
+### 3.1 - Métodos da Classe 
+
+Para teste de funcionalidade.
+Aqui deve-se verificar se cada classe retorna o esperado.
+Se possível usar teste automatizado.
+
+<br/>
+<table>
+    <tr>
+        <th>Objetivo</th>
+        <th colspan="4">Verificar o comportamento correto de serviços/repositórios (CRUD de cadastros, cálculos de balanço, regras de alerta).</th>
+    </tr>
+    <tr>
+        <th>Técnica:</th>
+        <th colspan="2">(x) manual</th>
+        <th colspan="2">(x) automática</th>
+    </tr>
+    <tr>
+        <th>Estágio do teste</th>
+        <th>Integração ( )</th>
+        <th>Sistema ( )</th>
+        <th>Unidade (x)</th>
+        <th>Aceitação ( )</th>
+    </tr>
+    <tr>
+        <th>Abordagem do teste</th>
+        <th colspan="2">Caixa branca (x)</th>
+        <th colspan="2">Caixa preta (x)</th>
+    </tr>
+    <tr>
+        <th>Responsável(is)</th>
+        <th colspan="4">Programador(es) e equipe de testes</th>
+    </tr>
+</table>
+<br/>
 
 ### 3.2 - Persistência de Dados
 
 Para teste de integridade de dados e do banco de dados.
+Aqui deve-se verificar se os dados não se perdem ao desligar o programa. Se o programa consegue se recuperar em caso de falha ou fechamento repentino.
+Se possível usar teste automatizado.
 
-- **Objetivo:** garantir durabilidade e consistência (transações de movimentação, anexos/documentos, trilhas de auditoria).
-- **Técnica:** (x) manual  (x) automática
-- **Estágio do teste:** Integração ( )  Sistema (x)  Unidade ( )  Aceitação ( )
-- **Abordagem do teste:** Caixa branca ( )  Caixa preta (x)
-- **Responsável(is):** Equipe de testes
+<br/>
+<table>
+    <tr>
+        <th>Objetivo</th>
+        <th colspan="4">Garantir durabilidade e consistência (transações de movimentação, anexos/documentos, trilhas de auditoria) e recuperação após falhas.</th>
+    </tr>
+    <tr>
+        <th>Técnica:</th>
+        <th colspan="2">(x) manual</th>
+        <th colspan="2">(x) automática</th>
+    </tr>
+    <tr>
+        <th>Estágio do teste</th>
+        <th>Integração ( )</th>
+        <th>Sistema (x)</th>
+        <th>Unidade ( )</th>
+        <th>Aceitação ( )</th>
+    </tr>
+    <tr>
+        <th>Abordagem do teste</th>
+        <th colspan="2">Caixa branca ( )</th>
+        <th colspan="2">Caixa preta (x)</th>
+    </tr>
+    <tr>
+        <th>Responsável(is)</th>
+        <th colspan="4">Programador(es) ou equipe de testes</th>
+    </tr>
+</table>
+<br/>
 
 ### 3.3 - Integração dos Componentes
 
-Para testar a orquestração entre componentes e integrações externas.
+Para teste de funcionalidade.
+Aqui deve-se verificar se as classes e métodos conseguem fazer a integração entre elas para uma sequência de ações do programa.
+Se possível usar teste automatizado.
 
-- **Objetivo:** verificar integração ERP/ETL e leitura de código de barras/RFID no fluxo de movimentações.
-- **Técnica:** (x) manual  (x) automática
-- **Estágio do teste:** Integração (x)  Sistema ( )  Unidade ( )  Aceitação ( )
-- **Abordagem do teste:** Caixa branca (x)  Caixa preta (x)
-- **Responsável(is):** Devs + QA
+<br/>
+<table>
+    <tr>
+        <th>Objetivo</th>
+        <th colspan="4">Verificar integração ERP/ETL e leitura de código de barras/RFID no fluxo de movimentações.</th>
+    </tr>
+    <tr>
+        <th>Técnica:</th>
+        <th colspan="2">(x) manual</th>
+        <th colspan="2">(x) automática</th>
+    </tr>
+    <tr>
+        <th>Estágio do teste</th>
+        <th>Integração (x)</th>
+        <th>Sistema ( )</th>
+        <th>Unidade ( )</th>
+        <th>Aceitação ( )</th>
+    </tr>
+    <tr>
+        <th>Abordagem do teste</th>
+        <th colspan="2">Caixa branca (x)</th>
+        <th colspan="2">Caixa preta (x)</th>
+    </tr>
+    <tr>
+        <th>Responsável(is)</th>
+        <th colspan="4">Programador(es) ou equipe de testes</th>
+    </tr>
+</table>
+<br/>
 
 ### 3.4 - Tempo de Resposta
 
-- **Objetivo:** garantir tempos aceitáveis no registro de movimentações e consultas de dashboards.
-- **Técnica:**  ( ) manual  (x) automática (k6/JMeter)
-- **Estágio do teste:** Integração ( )  Sistema (x)  Unidade ( )  Aceitação ( )
-- **Abordagem do teste:** Caixa preta (x)
-- **Responsável(is):** QA (Performance)
+Para teste de funcionalidade.
+Aqui deve-se verificar se o tempo de respostas das ações do programa são consideradas aceitáveis.
+Se possível usar teste automatizado.
 
-### 3.5 - Segurança e Controle de Acesso
+<br/>
+<table>
+    <tr>
+        <th>Objetivo</th>
+        <th colspan="4">Garantir tempos aceitáveis no registro de movimentações e nas consultas de dashboards.</th>
+    </tr>
+    <tr>
+        <th>Técnica:</th>
+        <th colspan="2">( ) manual</th>
+        <th colspan="2">(x) automática (k6/JMeter)</th>
+    </tr>
+    <tr>
+        <th>Estágio do teste</th>
+        <th>Integração ( )</th>
+        <th>Sistema (x)</th>
+        <th>Unidade ( )</th>
+        <th>Aceitação ( )</th>
+    </tr>
+    <tr>
+        <th>Abordagem do teste</th>
+        <th colspan="2">Caixa branca ( )</th>
+        <th colspan="2">Caixa preta (x)</th>
+    </tr>
+    <tr>
+        <th>Responsável(is)</th>
+        <th colspan="4">QA (Performance)</th>
+    </tr>
+</table>
+<br/>
 
-- **Objetivo:** assegurar autenticação, perfis e proteção de dados (LGPD), incluindo varredura DAST e SCA.
-- **Técnica:**  (x) manual  (x) automática (ZAP, SCA)
-- **Estágio do teste:** Sistema (x)
-- **Abordagem do teste:** Caixa preta (x)
-- **Responsável(is):** Sec/DevSecOps + QA
+### 3.5 - Animação
 
-### 3.6 - Usabilidade (UX) e Acessibilidade
+Para teste de funcionalidade (para games, principalmente, mas não somente).
+Aqui deve-se verificar se as animações existentes no programa são disparadas quando devem e se seguem uma sequência lógica.
+Se possível usar teste automatizado.
 
-- **Objetivo:** validar clareza de fluxos e critérios heurísticos; acessibilidade básica.
-- **Técnica:**  (x) manual  (x) automática (linters, checagens)
-- **Estágio do teste:** Sistema (x)
-- **Abordagem do teste:** Caixa preta (x)
-- **Responsável(is):** QA + PO
+> **Aplicabilidade para Digifab:** não há animações; **N/A**. Mantemos a seção por compatibilidade com o template.
+
+<br/>
+<table>
+    <tr>
+        <th>Objetivo</th>
+        <th colspan="4">N/A</th>
+    </tr>
+    <tr>
+        <th>Técnica:</th>
+        <th colspan="2">( ) manual</th>
+        <th colspan="2">( ) automática</th>
+    </tr>
+    <tr>
+        <th>Estágio do teste</th>
+        <th>Integração ( )</th>
+        <th>Sistema ( )</th>
+        <th>Unidade ( )</th>
+        <th>Aceitação ( )</th>
+    </tr>
+    <tr>
+        <th>Abordagem do teste</th>
+        <th colspan="2">Caixa branca ( )</th>
+        <th colspan="2">Caixa preta ( )</th>
+    </tr>
+    <tr>
+        <th>Responsável(is)</th>
+        <th colspan="4">N/A</th>
+    </tr>
+</table>
+<br/>
+
+### 3.6 - Efeitos Sonoros
+
+> **Aplicabilidade para Digifab:** não há efeitos sonoros; **N/A**. Se houver alertas sonoros no futuro, validar disparo, volume e acessibilidade.
+
+<br/>
+<table>
+    <tr>
+        <th>Objetivo</th>
+        <th colspan="4">N/A</th>
+    </tr>
+    <tr>
+        <th>Técnica:</th>
+        <th colspan="2">( ) manual</th>
+        <th colspan="2">( ) automática</th>
+    </tr>
+    <tr>
+        <th>Estágio do teste</th>
+        <th>Integração ( )</th>
+        <th>Sistema ( )</th>
+        <th>Unidade ( )</th>
+        <th>Aceitação ( )</th>
+    </tr>
+    <tr>
+        <th>Abordagem do teste</th>
+        <th colspan="2">Caixa branca ( )</th>
+        <th colspan="2">Caixa preta ( )</th>
+    </tr>
+    <tr>
+        <th>Responsável(is)</th>
+        <th colspan="4">N/A</th>
+    </tr>
+</table>
+<br/>
 
 ## 4 - Recursos
 
+Esta seção descreve os recursos humanos, de ambiente de teste (hardware e software) e de ferramentas de automatização de testes necessários.
+
 ### 4.1 - Ambiente de teste - Software e Hardware
 
-- **Ambientes:** DEV, HML (homologação), PRD (produção).
 - **Hardware/Infra:** containers, banco relacional, filas/retry, storage de documentos.
-- **Software:** SO atualizado, navegadores suportados, ferramentas citadas acima.
+- **Software:** SO atualizado, navegadores suportados (Chrome, Firefox, Edge), Node/.NET quando aplicável, serviços ERP/ETL de homologação.
+- **Ambientes:** DEV, HML (homologação), PRD (produção).
 
 ### 4.2 - Ferramenta de teste
 
@@ -136,12 +302,13 @@ Para testar a orquestração entre componentes e integrações externas.
 
 ## 5 - Cronograma
 
-Tipo de teste Duração data de início data de término
-planejar teste 04/10/2025 09/10/2025
-projetar teste 04/10/2025 14/10/2025
-implementar teste 04/10/2025 24/10/2025
-executar teste 04/10/2025 30/10/2025
-avaliar teste 04/10/2025 03/11/2025
+Tipo de teste      | Duração | data de início | data de término
+-------------------|---------|----------------|-----------------
+planejar teste | 5 dias | 04/10/2025 | 09/10/2025
+projetar teste | 10 dias | 04/10/2025 | 14/10/2025
+implementar teste | 20 dias | 04/10/2025 | 24/10/2025
+executar teste | 26 dias | 04/10/2025 | 30/10/2025
+avaliar teste | 30 dias | 04/10/2025 | 03/11/2025
 
 ---
 
