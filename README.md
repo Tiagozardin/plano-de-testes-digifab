@@ -5,8 +5,10 @@ versão 1.0
 
 ## Histórico das alterações
 
-Data Versão Descrição Autor(a)
-04/10/2025 1.0 Versão inicial baseada no Caso de Ensino Startup 2025 - Tiago Zardin/ Felipe Griep / Giulia Cardoso / Rosival de Souza
+   Data    | Versão | Descrição                                             | Autor(a)
+-----------|--------|-------------------------------------------------------|---------------------------------------------------------------
+04/10/2025 |  1.0   | Versão inicial baseada no Caso de Ensino Startup 2025 | Tiago Zardin/ Felipe Griep / Giulia Cardoso / Rosival de Souza
+
 
 ## 1 - Introdução
 
